@@ -1,0 +1,25 @@
+{
+  "name": "monad-logger",
+  "set": "psc-0.12.3",
+  "source": "https://github.com/purescript/package-sets.git",
+  "depends": [
+    "aff",
+    "ansi",
+    "argonaut",
+    "arrays",
+    "console",
+    "control",
+    "effect",
+    "foldable-traversable",
+    "foreign-object",
+    "integers",
+    "js-date",
+    "maybe",
+    "newtype",
+    "ordered-collections",
+    "prelude",
+    "strings",
+    "transformers",
+    "tuples"
+  ]
+}

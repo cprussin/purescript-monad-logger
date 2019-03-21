@@ -1,0 +1,36 @@
+{
+  "name": "purescript-monad-logger",
+  "homepage": "https://github.com/cprussin/purescript-monad-logger",
+  "description": "A purescrpt logging monad transformer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cprussin/purescript-monad-logger"
+  },
+  "ignore": [
+    "**/.*",
+    "docs",
+    "*.json",
+    "*.md"
+  ],
+  "dependencies": {
+    "purescript-aff": "^5.1.0",
+    "purescript-ansi": "^5.0.0",
+    "purescript-argonaut": "^6.0.0",
+    "purescript-arrays": "^5.2.0",
+    "purescript-console": "^4.2.0",
+    "purescript-control": "^4.1.0",
+    "purescript-effect": "^2.0.1",
+    "purescript-foldable-traversable": "^4.1.1",
+    "purescript-foreign-object": "^2.0.1",
+    "purescript-integers": "^4.0.0",
+    "purescript-js-date": "^6.0.0",
+    "purescript-maybe": "^4.0.1",
+    "purescript-newtype": "^3.0.0",
+    "purescript-ordered-collections": "^1.6.0",
+    "purescript-prelude": "^4.1.0",
+    "purescript-strings": "^4.0.1",
+    "purescript-transformers": "^4.2.0",
+    "purescript-tuples": "^5.1.0"
+  }
+}
