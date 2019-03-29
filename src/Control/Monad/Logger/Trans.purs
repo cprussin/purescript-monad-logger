@@ -10,11 +10,11 @@ import Prelude
 
 import Effect.Class (class MonadEffect, liftEffect)
 import Effect.Aff.Class (class MonadAff, liftAff)
-import Control.Monad.Reader.Trans
-  ( class MonadAsk
-  , class MonadReader
-  , ask
-  , local
+import Control.Monad.Error.Class
+  ( class MonadThrow
+  , class MonadError
+  , throwError
+  , catchError
   )
 import Control.Monad.Logger.Class
   ( class MonadLogger
@@ -23,6 +23,12 @@ import Control.Monad.Logger.Class
   , info
   , warn
   , error
+  )
+import Control.Monad.Reader.Trans
+  ( class MonadAsk
+  , class MonadReader
+  , ask
+  , local
   )
 import Control.Monad.Trans.Class (class MonadTrans, lift)
 import Data.Log.Message (Message)
@@ -72,7 +78,14 @@ instance monadAskLoggerT :: MonadAsk r m => MonadAsk r (LoggerT m) where
   ask = lift ask
 
 instance monadReaderLoggerT :: MonadReader r m => MonadReader r (LoggerT m) where
-  local f = mapLoggerT (local f)
+  local = mapLoggerT <<< local
 
 instance monadLoggerLoggerT :: MonadEffect m => MonadLogger (LoggerT m) where
-  log message = LoggerT (\logger -> logger message)
+  log message = LoggerT (_ $ message)
+
+instance monadThrowLoggerT :: MonadThrow e m => MonadThrow e (LoggerT m) where
+  throwError = throwError >>> lift
+
+instance monadErrorLoggerT :: MonadError e m => MonadError e (LoggerT m) where
+  catchError (LoggerT m) h =
+    LoggerT \l -> catchError (m l) $ h >>> unwrap >>> (_ $ l)
