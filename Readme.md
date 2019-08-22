@@ -13,7 +13,7 @@ library.
 Say you have a function that returns an effect to calculate a string:
 
 ```purescript
-doSomething :: forall m. MonadEffect m => m String
+doSomething :: forall m. Applicative m => m String
 doSomething = pure "foobar!"
 ```
 
@@ -53,12 +53,12 @@ tags of various types by using the functions exported from
 A log handler is just a function with the signature:
 
 ```purescript
-forall m. MonadEffect m => Message -> m Unit
+forall m. Message -> m Unit
 ```
 
-The `MonadEffect` constraint is required, even if you don't do anything
-effectual with your log handler, because this library generates timestamps for
-each message.
+Helper functions for building log handlers are defined in
+[Control.Monad.Logger.Class](src/Control/Monad/Logger/Class.purs). These
+generate timestamps for each message.
 
 Typically you will create a log handler by passing log messages through a
 formatter and to something like `Console.log`.  Sometimes you might want to add
