@@ -16,24 +16,24 @@ import Data.Log.Message (Message)
 import Data.Log.Tag (TagSet)
 import Effect.Class (class MonadEffect, liftEffect)
 
-class MonadEffect m <= MonadLogger m where
+class Monad m <= MonadLogger m where
   log :: Message -> m Unit
 
-log' :: forall m. MonadLogger m => LogLevel -> TagSet -> String -> m Unit
+log' :: forall m. MonadEffect m => MonadLogger m => LogLevel -> TagSet -> String -> m Unit
 log' level tags message =
   liftEffect now >>= log <<< { level, message, tags, timestamp: _ }
 
-trace :: forall m. MonadLogger m => TagSet -> String -> m Unit
+trace :: forall m. MonadEffect m => MonadLogger m => TagSet -> String -> m Unit
 trace = log' Trace
 
-debug :: forall m. MonadLogger m => TagSet -> String -> m Unit
+debug :: forall m. MonadEffect m => MonadLogger m => TagSet -> String -> m Unit
 debug = log' Debug
 
-info :: forall m. MonadLogger m => TagSet -> String -> m Unit
+info :: forall m. MonadEffect m => MonadLogger m => TagSet -> String -> m Unit
 info = log' Info
 
-warn :: forall m. MonadLogger m => TagSet -> String -> m Unit
+warn :: forall m. MonadEffect m => MonadLogger m => TagSet -> String -> m Unit
 warn = log' Warn
 
-error :: forall m. MonadLogger m => TagSet -> String -> m Unit
+error :: forall m. MonadEffect m => MonadLogger m => TagSet -> String -> m Unit
 error = log' Error
