@@ -29,7 +29,7 @@ import Effect.Console (log)
 main :: Effect Unit
 main = runLoggerT logMessage $ minimumLevel Info $ prettyFormatter >=> log
 
-logMessage :: forall m. MonadLogger m => m Unit
+logMessage :: forall m. MonadEffect m => MonadLogger m => m Unit
 logMessage = do
   tags <- getTags
   trace empty "Almost Hello World!"
