@@ -34,6 +34,10 @@ import Control.Monad.Rec.Class
   ( class MonadRec
   , tailRecM
   )
+import Control.Monad.State.Trans
+  ( class MonadState
+  , state
+  )
 import Control.Monad.Trans.Class (class MonadTrans, lift)
 import Data.Log.Message (Message)
 import Data.Newtype (class Newtype, unwrap)
@@ -80,6 +84,9 @@ instance monadAffLoggerT :: MonadAff m => MonadAff (LoggerT m) where
 
 instance monadAskLoggerT :: MonadAsk r m => MonadAsk r (LoggerT m) where
   ask = lift ask
+
+instance monadStateLoggerT :: MonadState s m => MonadState s (LoggerT m) where
+  state = lift <<< state
 
 instance monadReaderLoggerT :: MonadReader r m => MonadReader r (LoggerT m) where
   local = mapLoggerT <<< local
