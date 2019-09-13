@@ -10,6 +10,14 @@ module Control.Monad.Logger.Class
 
 import Prelude
 
+import Control.Monad.Cont.Trans (ContT)
+import Control.Monad.Except.Trans (ExceptT)
+import Control.Monad.List.Trans (ListT)
+import Control.Monad.Maybe.Trans (MaybeT)
+import Control.Monad.RWS.Trans (RWST)
+import Control.Monad.Reader.Trans (ReaderT)
+import Control.Monad.State.Trans (StateT)
+import Control.Monad.Writer.Trans (WriterT)
 import Data.JSDate (now)
 import Data.Log.Level (LogLevel(Trace, Debug, Info, Warn, Error))
 import Data.Log.Message (Message)
@@ -18,6 +26,30 @@ import Effect.Class (class MonadEffect, liftEffect)
 
 class MonadEffect m <= MonadLogger m where
   log :: Message -> m Unit
+
+instance monadLoggerContT :: MonadLogger m => MonadLogger (ContT a m) where
+  log = log
+
+instance monadLoggerExceptT :: MonadLogger m => MonadLogger (ExceptT a m) where
+  log = log
+
+instance monadLoggerListT :: MonadLogger m => MonadLogger (ListT m) where
+  log = log
+
+instance monadLoggerMaybeT :: MonadLogger m => MonadLogger (MaybeT m) where
+  log = log
+
+instance monadLoggerRWST :: (Monoid w, MonadLogger m) => MonadLogger (RWST r w s m) where
+  log = log
+
+instance monadLoggerReaderT :: MonadLogger m => MonadLogger (ReaderT a m) where
+  log = log
+
+instance monadLoggerStateT :: MonadLogger m => MonadLogger (StateT a m) where
+  log = log
+
+instance monadLoggerWriterT :: (Monoid w, MonadLogger m) => MonadLogger (WriterT w m) where
+  log = log
 
 log' :: forall m. MonadLogger m => LogLevel -> TagSet -> String -> m Unit
 log' level tags message =
