@@ -16,7 +16,7 @@
   "dependencies": {
     "purescript-aff": "^5.1.0",
     "purescript-ansi": "^5.0.0",
-    "purescript-argonaut": "^6.0.0",
+    "purescript-argonaut-core": "^5.0.0",
     "purescript-arrays": "^5.2.0",
     "purescript-console": "^4.2.0",
     "purescript-control": "^4.1.0",
